@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="support-count" @click="showDetail">
-          <span class="count">{{seller.supports.length}}个</span>
+          <span class="count" v-if="seller.supports">{{seller.supports.length}}个</span>
           <i class="icon-keyboard_arrow_right"></i>
         </div>
       </div>
@@ -174,7 +174,7 @@
             font-size: 16px
             font-weight: 700
             line-height: 16px
-            text-align :center
+            text-align: center
       .detail-close
         position: relative
         width: 32px
@@ -185,27 +185,27 @@
 </style>
 <script type="text/ecmascript-6">
   import star from 'components/star/star';
-    export default{
-      props: {
-        seller: {
-          type: Object
-        }
-      },
-      data () {
-        return {
-          detailShow: false
-        };
-      },
-      methods: {
-        showDetail () {
-          this.detailShow = true;
-        }
-      },
-      created () {
-        this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-      },
-      components: {
-        star
+  export default{
+    props: {
+      seller: {
+        type: Object
       }
-    };
+    },
+    data () {
+      return {
+        detailShow: false
+      };
+    },
+    methods: {
+      showDetail () {
+        this.detailShow = true;
+      }
+    },
+    created () {
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    },
+    components: {
+      star
+    }
+  };
 </script>
