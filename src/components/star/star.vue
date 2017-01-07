@@ -1,7 +1,6 @@
 <template>
     <div class="star" :class="starType">
       <span v-for="itemClass in itemClasses" :class="itemClass" track-by="$index" class="star-item"></span>
-
     </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus">
