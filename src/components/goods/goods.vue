@@ -2,7 +2,7 @@
     <div class="goods">
         <div class="menu-wrapper" v-el:menu-wrapper>
           <ul>
-            <li v-for="item in goods" class="menu-item" :class="{'current':currentIndex===$index}">
+            <li v-for="item in goods" class="menu-item" :class="{'current':currentIndex===$index}" @click="selectMenu($index,$event)">
               <span class="text border-1px">
                 <icon v-if="item.type>0" :size="3" :type="item.type"></icon>{{item.name}}</span>
             </li>
@@ -32,6 +32,7 @@
             </li>
           </ul>
         </div>
+        <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
     </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -125,6 +126,7 @@
 </style>
 <script type="text/ecmascript-6">
   import icon from 'components/icon/icon';
+  import shopcart from 'components/shopcart/shopcart';
   import BScroll from 'better-scroll';
 
   const ERR_OK = 0;
@@ -166,11 +168,22 @@
       });
     },
     components: {
-      icon
+      icon,
+      shopcart
     },
     methods: {
+      selectMenu(index, event) {
+        if (!event._constructed) {
+          return;
+        }
+        let foodList = this.$els.foodsWrapper.getElementsByClassName('food-list-hook');
+        let el = foodList[index];
+        this.foodsScroll.scrollToElement(el, 300);
+      },
       _initScroll() {
-        this.menuScroll = new BScroll(this.$els.menuWrapper, {});
+        this.menuScroll = new BScroll(this.$els.menuWrapper, {
+          click: true
+        });
         this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
           probeType: 3
         });
